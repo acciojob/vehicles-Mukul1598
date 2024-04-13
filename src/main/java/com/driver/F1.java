@@ -1,14 +1,15 @@
+
 package com.driver;
 
 public class F1 extends Car {
 
     public F1(String name, boolean isManual) {
-        // Use arbitrary values for parameters which are not mentioned
-        super(name, 4, 2, 7, isManual, "Formula 1", 1);
+        //Use arbitrary values for parameters which are not mentioned
+        super(name, 4, 2, 6, isManual, "race", 4);
     }
 
-    public void accelerate(int rate) {
-        int newSpeed = getCurrentSpeed() + rate; // set the value of new speed by using currentSpeed and rate
+    public void accelerate(int rate){
+        int newSpeed = getCurrentSpeed() + rate; //set the value of new speed by using currentSpeed and rate
         /**
          * speed 0: gear 1
          * speed 1-50: gear 1
@@ -19,28 +20,39 @@ public class F1 extends Car {
          * speed more than 250: gear 6
          */
 
-        if (newSpeed == 0) {
-            // Stop the car, set gear as 1
+        if(newSpeed == 0) {
+            //Stop the car, set gear as 1
             stop();
             changeGear(1);
-        } else if (newSpeed <= 50) {
-            changeGear(1);
-        } else if (newSpeed <= 100) {
-            changeGear(2);
-        } else if (newSpeed <= 150) {
-            changeGear(3);
-        } else if (newSpeed <= 200) {
-            changeGear(4);
-        } else if (newSpeed <= 250) {
-            changeGear(5);
-        } else {
+            setCurrentSpeed(0);
+//            return;
+        } else if (newSpeed > 250){
+//            super.changeSpeed(newSpeed, super.getCurrentDirection());
             changeGear(6);
+            setCurrentSpeed(newSpeed);
+//            return;
+        } else if (newSpeed > 200){
+//            super.changeSpeed(newSpeed, super.getCurrentDirection());
+            changeGear(5);
+            setCurrentSpeed(newSpeed);
+            return;
+        } else if (newSpeed > 150){
+//            super.changeSpeed(newSpeed, super.getCurrentDirection());
+            changeGear(4);
+            setCurrentSpeed(newSpeed);
+        } else if (newSpeed > 100){
+//            super.changeSpeed(newSpeed, super.getCurrentDirection());
+            changeGear(3);
+            setCurrentSpeed(newSpeed);
         }
-
-        if (newSpeed > 0) {
-            // Adjust the direction based on your requirements
-            // Here, I assume you want to keep the current direction
-            changeSpeed(newSpeed, getCurrentDirection());
+        else if (newSpeed > 50){
+            changeGear(2);
+            setCurrentSpeed(newSpeed);
+//            super.changeSpeed(newSpeed, super.getCurrentDirection());
+        } else if(newSpeed > 0) {
+//            super.changeSpeed(newSpeed, super.getCurrentDirection());
+            changeGear(1);
+            setCurrentSpeed(newSpeed);
         }
     }
 }
